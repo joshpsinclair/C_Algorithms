@@ -158,6 +158,11 @@ IntHashmap* ihm_new(int i_size, float g_factor) {
   return ihm;
 }
 
+void ihm_dealloc(IntHashmap *ihm) {
+  free(ihm->items);
+  free(ihm);
+}
+
 char* int_to_charp(int i) {
   int length = snprintf(NULL, 0, "%d", i);
   char* c = malloc(length+1);
@@ -248,6 +253,7 @@ void test_ihm_delete() {
   ihm_delete(ihm, "key");
   assert(ihm->items[0].key == NULL);
 }
+
 
 void run_ihm_tests() {
   test_ihm_is_index_collision();
